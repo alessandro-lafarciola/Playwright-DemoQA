@@ -1,5 +1,5 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-test('Verify submit button works', async ({ page }) => {
+test('check output when all fields are valid', async ({ page }) => {
   await page.goto('https://demoqa.com/text-box');
 });
