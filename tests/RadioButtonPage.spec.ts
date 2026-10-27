@@ -1,47 +1,36 @@
 import { test, expect } from '@playwright/test';
+import { RadioButtonPage } from '../pages/RadioButtonPage.js';
 
-test('should double click the button', async ({ page }) => {
+test('should click yes and impressive radio buttons', {tag: ['@radio-button-page-a']}, async ({ page }) => {
+  const radioButtonPage = new RadioButtonPage(page);
+  await radioButtonPage.goto();
 
-const yesRadioButton = page.locator('//input[@id="yesRadio"]');
-const impressiveRadioButton = page.locator('//input[@id="impressiveRadio"]');
-const radioButtonOutput = page.locator('//p[@class="mt-3"]');
+  // Check that the yes and impressive radio buttons are unchecked
+  await expect(radioButtonPage.yesRadioButton).not.toBeChecked();
+  await expect(radioButtonPage.impressiveRadioButton).not.toBeChecked();
 
+  // Click the yes radio button
+  await radioButtonPage.yesRadioButton.click();
+
+  // Check that the yes radio button is checked, and the impressive is unchecked
+  await expect(radioButtonPage.yesRadioButton).toBeChecked();
+  await expect(radioButtonPage.impressiveRadioButton).not.toBeChecked();
+  await expect(radioButtonPage.radioButtonOutput).toHaveText('You have selected Yes');
+
+  // Click the impressive radio button
+  await radioButtonPage.impressiveRadioButton.click();
+
+  // Check that the impressive radio button is checked, and the yes is unchecked
+  await expect(radioButtonPage.yesRadioButton).not.toBeChecked();
+  await expect(radioButtonPage.impressiveRadioButton).toBeChecked();
+  await expect(radioButtonPage.radioButtonOutput).toHaveText('You have selected Impressive');
+});
+
+test('should not click no radio button', {tag: ['@radio-button-page-b']}, async ({ page }) => {
+  const radioButtonPage = new RadioButtonPage(page);
+  await radioButtonPage.goto();
+
+  await expect(radioButtonPage.noRadioButton).toBeDisabled();
+  await expect(radioButtonPage.radioButtonOutput).toBeHidden();
+});
  
-await page.goto('https://demoqa.com/radio-button');
-
-//Check that the yes and impressive buttons are unchecked
-await expect(yesRadioButton).not.toBeChecked();
-await expect (impressiveRadioButton).not.toBeChecked();
-
-//Click the yes radio button
-await yesRadioButton.click();
-
-//Check that the yes radio button is checked and the impressive is not
-await expect(yesRadioButton).toBeChecked();
-await expect(impressiveRadioButton).not.toBeChecked();
-await expect(radioButtonOutput).toHaveText('You have selected Yes')
-
-//Click the impressive radio button
-await impressiveRadioButton.click();
-
-//Check that the impressive radio button is checked and the yes is not
-await expect(yesRadioButton).not.toBeChecked();
-await expect(impressiveRadioButton).toBeChecked();
-await expect(radioButtonOutput).toHaveText('You have selected Impressive')
-
-await page.waitForTimeout(3000);
-});
-
-test('should not click radio buttons', async ({ page }) => {
-const noRadioButton = page.locator('//input[@id="noRadio"]');
-const radioButtonOutput = page.locator('//p[@class="mt-3"]');
-
-await page.goto('https://demoqa.com/radio-button');
-
-await expect(noRadioButton).toBeDisabled();
-
-await expect(radioButtonOutput).toBeHidden();
-
-await page.waitForTimeout(3000);
-
-});
