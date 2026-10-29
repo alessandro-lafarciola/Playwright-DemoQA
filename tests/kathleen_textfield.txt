@@ -1,0 +1,5 @@
+First animal = dog
+Second animal = duck
+Third animal = horse
+Fourth animal = cat
+Fifth animal = elephant
