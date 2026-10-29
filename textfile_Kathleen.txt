@@ -2,8 +2,11 @@ First animal = Elephant
  
 Second animal = Monkey
  
-Third animal = Dolphin
+Third animal = Cat
  
 Fourth animal = Dog
  
-Fifth animal = Mouse
+Fifth animal = Horse
+
+Sixth animal = Grapes
+
