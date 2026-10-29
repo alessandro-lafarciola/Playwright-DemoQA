@@ -6,7 +6,7 @@ Third animal = Cat
  
 Fourth animal = Dog
  
-Fifth animal = Horse
+Fifth animal = Mouse
 
-Sixth animal = Grapes
+Sixth animal = Horse
 
